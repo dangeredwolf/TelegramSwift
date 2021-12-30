@@ -1183,7 +1183,7 @@ class ChatController: EditableViewController<ChatControllerView>, Notifable, Tab
     private let editCurrentMessagePhotoDisposable = MetaDisposable()
     private let failedMessageEventsDisposable = MetaDisposable()
     private let selectMessagePollOptionDisposables: DisposableDict<MessageId> = DisposableDict()
-    private let updateReqctionsDisposable: DisposableDict<MessageId> = DisposableDict()
+    private let updateReactionsDisposable: DisposableDict<MessageId> = DisposableDict()
     private let failedMessageIdsDisposable = MetaDisposable()
     private let hasScheduledMessagesDisposable = MetaDisposable()
     private let onlineMemberCountDisposable = MetaDisposable()
@@ -3762,7 +3762,7 @@ class ChatController: EditableViewController<ChatControllerView>, Notifable, Tab
             guard let `self` = self else {
                 return
             }
-            self.updateReqctionsDisposable.set((updateMessageReactionsInteractively(postbox: self.context.account.postbox, messageId: messageId, reaction: reaction) |> deliverOnMainQueue).start(), forKey: messageId)
+            self.updateReactionsDisposable.set((updateMessageReactionsInteractively(postbox: self.context.account.postbox, messageId: messageId, reaction: reaction) |> deliverOnMainQueue).start(), forKey: messageId)
         }
         chatInteraction.withToggledSelectedMessage = { [weak self] f in
             guard let `self` = self else {
@@ -5416,7 +5416,7 @@ class ChatController: EditableViewController<ChatControllerView>, Notifable, Tab
         slowModeDisposable.dispose()
         slowModeInProgressDisposable.dispose()
         forwardMessagesDisposable.dispose()
-        updateReqctionsDisposable.dispose()
+        updateReactionsDisposable.dispose()
         shiftSelectedDisposable.dispose()
         failedMessageIdsDisposable.dispose()
         hasScheduledMessagesDisposable.dispose()
